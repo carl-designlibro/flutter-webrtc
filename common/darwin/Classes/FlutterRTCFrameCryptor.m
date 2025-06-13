@@ -81,8 +81,9 @@
   switch ([algorithm intValue]) {
     case 0:
       return RTCCryptorAlgorithmAesGcm;
-    case 1:
-      return RTCCryptorAlgorithmAesCbc;
+//          carl,解决编译问题
+//    case 1:
+//      return RTCCryptorAlgorithmAesCbc;
     default:
       return RTCCryptorAlgorithmAesGcm;
   }
@@ -567,21 +568,43 @@
   result(@{@"result" : @"success"});
 }
 
-- (NSString*)stringFromState:(FrameCryptionState)state {
+//- (NSString*)stringFromState:(FrameCryptionState)state {
+//  switch (state) {
+//    case FrameCryptionStateNew:
+//      return @"new";
+//    case FrameCryptionStateOk:
+//      return @"ok";
+//    case FrameCryptionStateEncryptionFailed:
+//      return @"encryptionFailed";
+//    case FrameCryptionStateDecryptionFailed:
+//      return @"decryptionFailed";
+//    case FrameCryptionStateMissingKey:
+//      return @"missingKey";
+//    case FrameCryptionStateKeyRatcheted:
+//      return @"keyRatcheted";
+//    case FrameCryptionStateInternalError:
+//      return @"internalError";
+//    default:
+//      return @"unknown";
+//  }
+//}
+
+// carl,解决编译问题
+- (NSString*)stringFromState:(RTCFrameCryptorState)state {
   switch (state) {
-    case FrameCryptionStateNew:
+    case RTCFrameCryptorStateNew:
       return @"new";
-    case FrameCryptionStateOk:
+    case RTCFrameCryptorStateOk:
       return @"ok";
-    case FrameCryptionStateEncryptionFailed:
+    case RTCFrameCryptorStateEncryptionFailed:
       return @"encryptionFailed";
-    case FrameCryptionStateDecryptionFailed:
+    case RTCFrameCryptorStateDecryptionFailed:
       return @"decryptionFailed";
-    case FrameCryptionStateMissingKey:
+    case RTCFrameCryptorStateMissingKey:
       return @"missingKey";
-    case FrameCryptionStateKeyRatcheted:
+    case RTCFrameCryptorStateKeyRatcheted:
       return @"keyRatcheted";
-    case FrameCryptionStateInternalError:
+    case RTCFrameCryptorStateInternalError:
       return @"internalError";
     default:
       return @"unknown";
@@ -592,7 +615,8 @@
 
 - (void)frameCryptor:(RTC_OBJC_TYPE(RTCFrameCryptor) *)frameCryptor
     didStateChangeWithParticipantId:(NSString*)participantId
-                          withState:(FrameCryptionState)stateChanged {
+//                          withState:(FrameCryptionState)stateChanged { //carl，解决编译问题
+           withState:(RTCFrameCryptorState)stateChanged {
   if (frameCryptor.eventSink) {
     postEvent(frameCryptor.eventSink, @{
       @"event" : @"frameCryptionStateChanged",
